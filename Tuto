@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Participa - Jóvenes Profesionales por Oruro</title>
+  <style>
+    :root{
+      --red:#d40000;
+      --blue:#0b3b8a;
+      --light-blue:#5aa3ff;
+      --white:#ffffff;
+      --bg-gradient: linear-gradient(120deg, var(--red), var(--white), var(--blue));
+    }
+
+    /* Reset básico */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+
+    body{
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: bgShift 14s linear infinite;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    @keyframes bgShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .card{
+      width:100%;
+      max-width:1000px;
+      background: rgba(255,255,255,0.95);
+      border-radius:18px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.18);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:0;
+    }
+
+    /* Column izquierda - contenido */
+    .content{
+      padding:36px;
+    }
+
+    header h1{
+      font-size:2.4rem;
+      color:var(--red);
+      letter-spacing:1px;
+      margin-bottom:8px;
+    }
+    header p.lead{
+      color:var(--blue);
+      font-size:1.15rem;
+      margin-bottom:18px;
+    }
+
+    .badges{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .badge{
+      background:linear-gradient(90deg,var(--red),var(--light-blue));
+      color:white;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:600;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+      font-size:0.95rem;
+    }
+
+    .highlight-red{
+      color:var(--red);
+      font-weight:700;
+    }
+
+    .text-block{
+      margin-top:10px;
+      color:#222;
+      line-height:1.55;
+      font-size:1rem;
+    }
+
+    /* JP box */
+    .jp{
+      margin-top:20px;
+      background:#f6faff;
+      border-left:6px solid var(--red);
+      padding:14px 16px;
+      border-radius:8px;
+    }
+    .jp h3{ color:var(--red); margin-bottom:6px; font-size:1.05rem }
+    .jp p{ margin:0; color:#0b2c55; font-size:0.98rem; line-height:1.45 }
+
+    /* CTA row */
+    .cta-row{
+      display:flex;
+      gap:12px;
+      margin-top:20px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      background: linear-gradient(90deg,var(--red),var(--blue));
+      color: #fff;
+      border:none;
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(0,0,0,0.12);
+      transition:transform .18s ease, opacity .18s ease;
+    }
+    .btn:active{ transform:translateY(2px) }
+    .btn.secondary{
+      background:transparent;
+      color:var(--blue);
+      border:2px solid rgba(11,59,138,0.12);
+      font-weight:600;
+    }
+
+    /* Counter */
+    .counter{
+      margin-top:18px;
+      display:inline-block;
+      background:#fff;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:700;
+      color:#222;
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    .counter .time{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:8px;
+      font-size:1.05rem;
+    }
+    .time .unit{
+      min-width:68px;
+      text-align:center;
+      background:linear-gradient(180deg,#fff,#f3f7ff);
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid rgba(11,59,138,0.06);
+      box-shadow:inset 0 -6px 14px rgba(11,59,138,0.02);
+    }
+
+    /* Columna derecha - media */
+    .media{
+      padding:20px;
+      background:linear-gradient(180deg, rgba(11,59,138,0.03), rgba(212,0,0,0.03));
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .media video, .media img{
+      width:100%;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.12);
+      background:#000;
+    }
+
+    .media .slogan{
+      font-weight:800;
+      color:var(--blue);
+      font-size:1.05rem;
+      text-align:center;
+      padding:6px 10px;
+    }
+
+    /* Footer */
+    .legal{
+      margin-top:12px;
+      font-size:0.86rem;
+      color:#445;
+      opacity:0.9;
+      text-align:center;
+    }
+
+    /* small screens */
+    @media(max-width:920px){
+      .card{ grid-template-columns: 1fr; }
+      .media{ order:-1; padding:16px }
+      header h1{ font-size:2rem }
+    }
+
+    /* heartbeat highlight when <10d */
+    .urgent{
+      animation: heartbeat 1.2s infinite;
+    }
+    @keyframes heartbeat{
+      0%{ transform:scale(1) }
+      30%{ transform:scale(1.03) }
+      60%{ transform:scale(1) }
+      100%{ transform:scale(1.03) }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="pageTitle">
+    <section class="content" aria-labelledby="pageTitle">
+      <header>
+        <h1 id="pageTitle">Participa: Jóvenes Profesionales por Oruro</h1>
+        <p class="lead">El poder del futuro está en las nuevas generaciones. Tu participación marca la diferencia.</p>
+      </header>
+
+      <div class="badges" aria-hidden="true">
+        <div class="badge">El cambio empieza contigo</div>
+        <div class="badge">Participa este 19 de octubre</div>
+        <div class="badge">Construyamos juntos el futuro de Oruro</div>
+      </div>
+
+      <div class="text-block">
+        <p><span class="highlight-red">Jóvenes Profesionales por Oruro</span> reúne a profesionales, estudiantes y ciudadanos comprometidos con la transparencia, el trabajo y la innovación para el desarrollo regional. No es una consigna: es acción, compromiso y servicio.</p>
+
+        <div class="jp" aria-labelledby="jpTitle">
+          <h3 id="jpTitle">¿Quiénes son?</h3>
+          <p>Un colectivo de jóvenes profesionales de distintas disciplinas que proponen soluciones prácticas para educación, salud, empleo y participación ciudadana. Promueven el diálogo y la colaboración local para construir propuestas con impacto real.</p>
+        </div>
+
+        <p style="margin-top:12px">Participar no es solo votar: es informarse, movilizarse y exigir rendición de cuentas. Si quieres que Oruro avance, hazte escuchar este 19 de octubre.</p>
+
+        <div class="cta-row">
+          <button class="btn" id="shareBtn" title="Compartir">Compartir iniciativa</button>
+          <button class="btn secondary" id="toggleAudio">Activar sonido</button>
+          <div class="counter" id="counterBox" aria-live="polite" aria-atomic="true">
+            <div>⏳ <strong id="counterLabel">Faltan</strong></div>
+            <div class="time" id="timeRow">
+              <div class="unit"><span id="d">--</span><div style="font-weight:600;font-size:0.78rem">Días</div></div>
+              <div class="unit"><span id="h">--</span><div style="font-weight:600;font-size:0.78rem">Horas</div></div>
+              <div class="unit"><span id="m">--</span><div style="font-weight:600;font-size:0.78rem">Min</div></div>
+              <div class="unit"><span id="s">--</span><div style="font-weight:600;font-size:0.78rem">Seg</div></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="legal">Página motivacional neutra para fomentar la participación ciudadana. Sustituye imágenes y audios por tus archivos antes de publicar.</p>
+      </div>
+    </section>
+
+    <aside class="media" aria-label="Material visual">
+      <!-- Reemplaza 'referencia.mp4' por tu clip de referencia si lo deseas.
+           Si no tienes video, puedes reemplazar por una imagen (img). -->
+      <video id="video.mp4" src="video.mp4" controls playsinline muted></video>
+
+      <div class="slogan">
+        <strong>Participa este 19 de octubre — Haz que tu voz cuente</strong>
+      </div>
+
+      <!-- Audio principal (intenta autoplay al cargar). Reemplaza por tu archivo real TUTOAUDIO.mp3 si lo deseas. -->
+      <audio id="mainAudio" src="TUTOAUDIO .mp3" loop></audio>
+
+      <div style="font-size:0.9rem;color:#123;margin-top:6px;opacity:0.85">Audio: presiona "REGRESAR" para escuchar</div>
+<a href="INDEX.html" class="regresar-btn">REGRESAR</a>
+
+<style>
+.regresar-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  background: linear-gradient(45deg, red, blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.regresar-btn:hover {
+  transform: scale(1.05);
+}
+</style>
+</aside>
+  </main>
+
+<script>
+  // Configuración: fecha objetivo (19 oct 2025 a las 00:00:00)
+  const objetivo = new Date("Oct 19, 2025 00:00:00").getTime();
+
+  // Elementos
+  const dEl = document.getElementById('d');
+  const hEl = document.getElementById('h');
+  const mEl = document.getElementById('m');
+  const sEl = document.getElementById('s');
+  const counterBox = document.getElementById('counterBox');
+  const counterLabel = document.getElementById('counterLabel');
+  const toggleAudioBtn = document.getElementById('toggleAudio');
+  const mainAudio = document.getElementById('mainAudio');
+  const refVideo = document.getElementById('refVideo');
+
+  // Sonido tic (opcional). Si no tienes archivo, crea tick.mp3 o coméntalo.
+  const tick = new Audio("tick.mp3"); // <<< proporciona tick.mp3 o coméntalo si no lo tienes
+  tick.volume = 0.7;
+
+  // Intentar autoplay al cargar (muchos navegadores bloquean reproducción con sonido).
+  window.addEventListener('load', () => {
+    // reproducir en silencio primero para permitir autoplay en algunos navegadores
+    if(mainAudio){
+      mainAudio.muted = true;
+      mainAudio.play().catch(()=>{/* autoplay bloqueado */});
+    }
+    // video intentar reproducir en mute (si hay video)
+    if(refVideo){
+      refVideo.play().catch(()=>{ /* bloqueo */ });
+    }
+  });
+
+  // Toggle audio (usuario activa sonido)
+  let audioOn = false;
+  toggleAudioBtn.addEventListener('click', () => {
+    audioOn = !audioOn;
+    if(mainAudio){
+      mainAudio.muted = !audioOn;
+      if(audioOn){
+        mainAudio.play().catch(()=>{/* bloqueo */});
+        toggleAudioBtn.textContent = "Desactivar sonido";
+      } else {
+        toggleAudioBtn.textContent = "Activar sonido";
+      }
+    }
+  });
+
+  // Compartir (ejemplo simple; usa Web Share API si está disponible)
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    const shareData = {
+      title: 'Participa: Jóvenes Profesionales por Oruro',
+      text: 'Participa este 19 de octubre. Haz que tu voz cuente.',
+      url: location.href
+    };
+    if(navigator.share){
+      try { await navigator.share(shareData); }
+      catch(err){ alert('No se pudo compartir: ' + err.message); }
+    } else {
+      // fallback simple: copiar URL al portapapeles
+      try{
+        await navigator.clipboard.writeText(location.href);
+        alert('Enlace copiado al portapapeles. Compártelo con tus amigos.');
+      } catch(e){
+        alert('Comparte la URL manualmente: ' + location.href);
+      }
+    }
+  });
+
+  // Contador dinámico con efecto de urgencia y tic cuando falta < 10 días
+  let ticPlaying = false;
+  const updateCounter = () => {
+    const now = Date.now();
+    let dist = objetivo - now;
+
+    if(dist <= 0){
+      dEl.textContent = 0; hEl.textContent = 0; mEl.textContent = 0; sEl.textContent = 0;
+      counterLabel.textContent = "¡Es el día!";
+      counterBox.classList.add('urgent');
+      // stop ticking
+      if(tick && !tick.paused){ tick.pause(); tick.currentTime = 0; }
+      return;
+    }
+
+    const dias = Math.floor(dist / (1000*60*60*24));
+    const horas = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
+    const minutos = Math.floor((dist % (1000*60*60)) / (1000*60));
+    const segundos = Math.floor((dist % (1000*60)) / 1000);
+
+    dEl.textContent = String(dias).padStart(2,'0');
+    hEl.textContent = String(horas).padStart(2,'0');
+    mEl.textContent = String(minutos).padStart(2,'0');
+    sEl.textContent = String(segundos).padStart(2,'0');
+    counterLabel.textContent = "Faltan";
+
+    // Si quedan menos de 10 días, destaque visual y tic opcional
+    if(dias < 10){
+      counterBox.classList.add('urgent');
+      // reproducir tic si usuario activó audio y tick existe
+      if(audioOn && tick && typeof tick.play === 'function'){
+        // reproducir tic cada segundo (si no está ya reproduciéndose)
+        if(!ticPlaying){
+          ticPlaying = true;
+          // play a single tick each second via interval
+          tick.play().catch(()=>{ /* bloqueo */ });
+          // set short interval to replay tick each second:
+          if(window._tickInterval) clearInterval(window._tickInterval);
+          window._tickInterval = setInterval(()=>{
+            tick.currentTime = 0;
+            tick.play().catch(()=>{/* bloqueo */});
+          }, 1000);
+        }
+      }
+    } else {
+      counterBox.classList.remove('urgent');
+      if(window._tickInterval){ clearInterval(window._tickInterval); window._tickInterval = null; ticPlaying = false; }
+      if(tick && !tick.paused){ tick.pause(); tick.currentTime = 0; }
+    }
+  };
+
+  // Actualiza cada segundo
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+  // Limpieza: pausar tick si el usuario navega fuera de la pestaña
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){
+      if(window._tickInterval){ clearInterval(window._tickInterval); window._tickInterval = null; }
+      if(tick && !tick.paused){ tick.pause(); tick.currentTime = 0; ticPlaying = false; }
+    } else {
+      // re-evaluar (si audioOn y <10 días, se volverá a programar)
+      updateCounter();
+    }
+  });
+</script>
+</body>
+</html>
